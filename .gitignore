@@ -1,0 +1,70 @@
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iml
+out/
+
+# =========================
+# Maven
+# =========================
+target/
+
+# Maven Wrapper (mantenha estes arquivos)
+!.mvn/wrapper/maven-wrapper.jar
+!mvnw
+!mvnw.cmd
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# H2 Database
+# =========================
+*.mv.db
+*.trace.db
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Environment
+# =========================
+.env
+.env.*
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.swp
+*.swo
+
+# =========================
+# VS Code (caso abra o projeto)
+# =========================
+.vscode/
+
+# =========================
+# Eclipse (caso importe)
+# =========================
+.project
+.classpath
+.settings/
+
+# =========================
+# NetBeans
+# =========================
+nbproject/private/
+build/
+
+# =========================
+# Generated reports
+# =========================
+coverage/
