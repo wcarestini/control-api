@@ -55,6 +55,10 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
     public String getName() {
         return this.name;
     }
