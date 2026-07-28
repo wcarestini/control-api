@@ -5,6 +5,7 @@ import com.control_api.dto.ProductResponse;
 import com.control_api.service.CreateProductService;
 import com.control_api.service.FindAllProductsService;
 import com.control_api.service.FindProductByIdService;
+import com.control_api.service.UpdateProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,13 +27,16 @@ public class ProductController {
     private final CreateProductService createProductService;
     private final FindAllProductsService findAllProductsService;
     private final FindProductByIdService findProductByIdService;
+    private final UpdateProductService updateProductService;
 
     public ProductController(final CreateProductService createProductService,
                              final FindAllProductsService findAllProductsService,
-                             final FindProductByIdService findProductByIdService) {
+                             final FindProductByIdService findProductByIdService,
+                             final UpdateProductService updateProductService) {
         this.createProductService = createProductService;
         this.findAllProductsService = findAllProductsService;
         this.findProductByIdService = findProductByIdService;
+        this.updateProductService = updateProductService;
     }
 
     @PostMapping
@@ -64,6 +69,14 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> findById(@PathVariable final Long id) {
         final var response = ProductResponse.fromEntity(findProductByIdService.findById(id));
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> update(@PathVariable final Long id,
+                                                  @Valid @RequestBody final ProductRequest request) {
+        final var response = ProductResponse.fromEntity(updateProductService.update(id, request));
 
         return ResponseEntity.ok(response);
     }
