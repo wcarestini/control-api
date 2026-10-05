@@ -37,7 +37,7 @@ public class FindProductByIdIntegrationTest {
 
         mockMvc.perform(get("/products/" + product.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.id", is(product.getId().intValue())))
                 .andExpect(jsonPath("$.name", is("Notebook")))
                 .andExpect(jsonPath("$.description", is("Notebook dell")))
                 .andExpect(jsonPath("$.price", is(1200.00)))
