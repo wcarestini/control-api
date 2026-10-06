@@ -3,6 +3,7 @@ package com.control_api.controller;
 import com.control_api.dto.ProductRequest;
 import com.control_api.dto.ProductResponse;
 import com.control_api.service.CreateProductService;
+import com.control_api.service.DeleteProductService;
 import com.control_api.service.FindAllProductsService;
 import com.control_api.service.FindProductByIdService;
 import com.control_api.service.UpdateProductService;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,15 +30,18 @@ public class ProductController {
     private final FindAllProductsService findAllProductsService;
     private final FindProductByIdService findProductByIdService;
     private final UpdateProductService updateProductService;
+    private final DeleteProductService deleteProductService;
 
     public ProductController(final CreateProductService createProductService,
                              final FindAllProductsService findAllProductsService,
                              final FindProductByIdService findProductByIdService,
-                             final UpdateProductService updateProductService) {
+                             final UpdateProductService updateProductService,
+                             final DeleteProductService deleteProductService) {
         this.createProductService = createProductService;
         this.findAllProductsService = findAllProductsService;
         this.findProductByIdService = findProductByIdService;
         this.updateProductService = updateProductService;
+        this.deleteProductService = deleteProductService;
     }
 
     @PostMapping
@@ -79,5 +84,12 @@ public class ProductController {
         final var response = ProductResponse.fromEntity(updateProductService.update(id, request));
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable final Long id) {
+        deleteProductService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
